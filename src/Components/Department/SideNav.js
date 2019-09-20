@@ -7,26 +7,26 @@ const Sidenav = ({ onIfaceChange }) => {
 	return (
 		<SideNav
 			onSelect={selected => {
-				// Add your code here
+				onIfaceChange(selected)
 			}}
 		>
 			<SideNav.Toggle />
 			<SideNav.Nav defaultSelected='home'>
-				<NavItem eventKey='home' onClick={() => onIfaceChange('home')}>
+				<NavItem eventKey='home'>
 					<NavIcon>
 						<i className='fa fa-fw fa-home' style={{ fontSize: '1.75em' }} />
 					</NavIcon>
 					<NavText>Home</NavText>
 				</NavItem>
-				<NavItem eventKey='pend' onClick={() => onIfaceChange('pending')}>
+				<NavItem eventKey='pending'>
 					<NavIcon>
-						<i className='fa fa-fw fa-line-chart' style={{ fontSize: '1.75em' }} />
+						<i className='fa fa-clock-o' style={{ fontSize: '1.75em' }} />
 					</NavIcon>
 					<NavText>Pending Complaints</NavText>
 				</NavItem>
-				<NavItem eventKey='logout' onClick={() => onIfaceChange('logout')}>
+				<NavItem eventKey='logout'>
 					<NavIcon>
-						<i className='fa fa-fw fa-line-chart' style={{ fontSize: '1.75em' }} />
+						<i className='fa fa-sign-out' style={{ fontSize: '1.75em' }} />
 					</NavIcon>
 					<NavText>Logout</NavText>
 				</NavItem>
