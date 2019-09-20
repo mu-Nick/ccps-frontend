@@ -24,15 +24,30 @@ const Bar = styled.div`
     flex-direction: column;
     justify-content: start;
     align-items: center;
+    background: linear-gradient(
+        180deg,
+        rgba(10, 9, 12, 1) 0%,
+        rgba(65, 65, 65, 1) 100%,
+        rgba(255, 255, 255, 1) 100%
+    );
 `
 
 const StyledLink = styled(Link)`
     width: 100%;
-    height: 50px;
-    margin: 10px auto;
+    height: 70px;
+    font-size: 1.2em;
     display: flex;
     justify-content: center;
     align-items: center;
+    background: none;
+    color: white;
+    text-decoration: none;
+    background-blend-mode: overlay;
+    transition: all 0.2s;
+
+    :hover {
+        background: rgba(240, 237, 238, 0.5);
+    }
 `
 
 export default Sidebar

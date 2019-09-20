@@ -64,7 +64,12 @@ const Newcomp = () => {
                         required
                     />
                 </Label>
-                <Label for='desc'>
+                <Label
+                    for='desc'
+                    style={{
+                        width: '100%'
+                    }}
+                >
                     Complaint Description :
                     <TextArea
                         width='80%'
@@ -101,6 +106,9 @@ const Heading = styled.h1`
 const Form = styled.div`
     width: 100%;
     padding: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 `
 
 const Label = styled.label`
@@ -131,6 +139,7 @@ const TextArea = styled.textarea`
 
 const Button = styled.button`
     width: 20%;
+    min-width: 300px;
     height: 50px;
     font-size: 1.2em;
     font-weight: 700;
