@@ -36,7 +36,7 @@ const App = () => {
             {route === 'login' ? (
                 <Login onRouteChange={onRouteChange} loadUser={loadUser} />
             ) : route === 'student' ? (
-                <Student />
+                <Student onRouteChange={onRouteChange} />
             ) : (
                 <Department onRouteChange={onRouteChange} />
             )}

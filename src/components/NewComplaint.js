@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
-const Newcomp = () => {
+const NewComplaint = () => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [title, setTitle] = useState('')
@@ -145,4 +145,4 @@ const Button = styled.button`
     font-weight: 700;
 `
 
-export default Newcomp
+export default NewComplaint
