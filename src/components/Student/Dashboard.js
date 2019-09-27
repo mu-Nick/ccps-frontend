@@ -1,16 +1,34 @@
-import React, { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
-import styled from 'styled-components'
+import React from 'react'
 
-// const complaints = {
-//     Computer: ['Windows XP'],
-//     Hostel: ['Lack of cleanliness in hostel 10', 'High Mess bill in H-4']
-// }
+import { requestApproved } from '../../services/complaintsService'
 
-// const depts = ['Computer', 'Hostel']
-
-const Dashboard = ({ user }) => {
-    // const [departments, setDepartments] = useState(depts)
+const Dashboard = ({ user, notifications, setNotifications }) => {
+    const renderNotifications = () => {
+        return notifications.map(notification => (
+            <article key={notification.complaintID} className='dt w-100 pb2 mt2' href='#0'>
+                <div className='dtc v-mid pl3'>
+                    <h1 className='f6 f5-ns fw6 lh-title black mv0'>{notification.complaintID}</h1>
+                    <h2 className='f6 fw4 mt0 mb0 black-60'>{notification.message}</h2>
+                </div>
+                <div className='dtc v-mid'>
+                    <form className='w-100 tr'>
+                        <button
+                            type='button'
+                            className='f6 bg-white ba b--black-10 dim pointer pv1 black-60'
+                        >
+                            Support
+                        </button>
+                        <button
+                            type='button'
+                            className='f6 bg-white ba b--black-10 dim pointer pv1 black-60'
+                        >
+                            Decline
+                        </button>
+                    </form>
+                </div>
+            </article>
+        ))
+    }
 
     return (
         <>

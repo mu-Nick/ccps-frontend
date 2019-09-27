@@ -19,12 +19,16 @@ const App = () => {
     }
 
     const [user, setUser] = useState(null)
+    const [notifications, setNotifications] = useState([])
     const loadUser = user => {
         setUser({
             id: user.ID ? user.ID : user.Roll,
             name: user.Name,
             email: user.Email
         })
+        if (user.Notifications) {
+            setNotifications(user.Notifications)
+        }
     }
 
     console.log(route)
@@ -36,7 +40,12 @@ const App = () => {
             {route === 'login' ? (
                 <Login onRouteChange={onRouteChange} loadUser={loadUser} />
             ) : route === 'student' ? (
-                <Student onRouteChange={onRouteChange} user={user} />
+                <Student
+                    onRouteChange={onRouteChange}
+                    user={user}
+                    notifications={notifications}
+                    setNotifications={setNotifications}
+                />
             ) : (
                 <Department onRouteChange={onRouteChange} user={user} />
             )}

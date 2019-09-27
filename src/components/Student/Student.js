@@ -4,20 +4,29 @@ import SideNav from './SideNav'
 import ViewComplaints from './ViewComplaints'
 import NewComplaint from './NewComplaint'
 
-const Student = ({ user, onRouteChange }) => {
+const Student = ({ user, notifications, setNotifications, onRouteChange }) => {
     const [Iface, setIface] = useState('dashboard')
-    const [comps, setComps] = useState([])
     const onIfaceChange = newIface => {
         if (newIface !== 'logout') setIface(newIface)
-        else onRouteChange('login')
+        else {
+            onRouteChange('login')
+            setNotifications([])
+        }
     }
 
     const renderComponents = () => {
+        // eslint-disable-next-line
         switch (Iface) {
             case 'dashboard':
-                return <Dashboard user={user} loadComplaints={setComps} />
+                return (
+                    <Dashboard
+                        user={user}
+                        notifications={notifications}
+                        setNotifications={setNotifications}
+                    />
+                )
             case 'viewComplaints':
-                return <ViewComplaints comps={comps} user={user} loadComplaintsloadComplaints />
+                return <ViewComplaints user={user} />
             case 'newComplaint':
                 return <NewComplaint rollno={user.id} />
             default:
