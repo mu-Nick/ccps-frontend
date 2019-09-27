@@ -14,85 +14,37 @@ const Dashboard = ({ user }) => {
 
     return (
         <>
-            {/*<DashHome comps={comps} departments={departments} />*/}
-
-            <div class='mw9 center ph3-ns'>
-                <div class='cf ph2-ns'>
-                    <div class='fl w-100 w-third-ns pa2'>
-                        <section class='tc pa3 pa5-ns'>
-                            <article class='hide-child relative ba b--black-20 mw5 center'>
-                                <img
-                                    src='https://nitkkr.ac.in/docs/NITKKR_logo.png'
-                                    class='db'
-                                    alt='Department'
-                                />
-                                <div class='pa2 bt b--black-20'>
-                                    <a
-                                        class='link tc ph3 pv1 db bg-animate bg-dark-blue hover-bg-blue white f6 br1'
-                                        href='#'
-                                    >
-                                        Department
-                                    </a>
-                                </div>
-                            </article>
-                        </section>
-                    </div>
-                    <div class='fl w-100 w-third-ns pa2'>
-                        <section class='tc pa3 pa5-ns'>
-                            <article class='hide-child relative ba b--black-20 mw5 center'>
-                                <img
-                                    src='https://nitkkr.ac.in/docs/NITKKR_logo.png'
-                                    class='db'
-                                    alt='Department'
-                                />
-                                <div class='pa2 bt b--black-20'>
-                                    <a
-                                        class='link tc ph3 pv1 db bg-animate bg-dark-blue hover-bg-blue white f6 br1'
-                                        href='#'
-                                    >
-                                        Department
-                                    </a>
-                                </div>
-                            </article>
-                        </section>
-                    </div>
-                    <div class='fl w-100 w-third-ns pa2'>
-                        <section class='tc pa3 pa5-ns'>
-                            <article class='hide-child relative ba b--black-20 mw5 center'>
-                                <img
-                                    src='https://nitkkr.ac.in/docs/NITKKR_logo.png'
-                                    class='db'
-                                    alt='Department'
-                                />
-                                <div class='pa2 bt b--black-20'>
-                                    <a
-                                        class='link tc ph3 pv1 db bg-animate bg-dark-blue hover-bg-blue white f6 br1'
-                                        href='#'
-                                    >
-                                        Department
-                                    </a>
-                                </div>
-                            </article>
-                        </section>
-                    </div>
+            <div className='ma5'>
+                <div class='fl w-100 w-33-ns tc pv5 '>
+                    <h1>{user.id}</h1>
+                </div>
+                <div class='fl w-100 w-33-ns tc pv5'>
+                    <h1>{user.name}</h1>
+                </div>
+                <div class='fl w-100 w-33-ns tc pv5'>
+                    <h1>{user.email}</h1>
+                </div>
+                <div className='fl w-100 w-100-ns tc pv2'>
+                    <h1>Notifications</h1>
+                </div>
+                <div className='fl w-100 w-100-ns tc pv2'>
+                    <article class='dt w-100 pb2 mt2' href='#0'>
+                        <div class='dtc v-mid pl3'>
+                            <h1 class='f6 f5-ns fw6 lh-title black mv0'>Subject</h1>
+                            <h2 class='f6 fw4 mt0 mb0 black-60'>Supporters</h2>
+                        </div>
+                        <div class='dtc v-mid'>
+                            <form class='w-100 tr'>
+                                <button class='f6 bg-white ba b--black-10 dim pointer pv1 black-60'>
+                                    View
+                                </button>
+                            </form>
+                        </div>
+                    </article>
                 </div>
             </div>
         </>
     )
 }
-
-const Layout = styled.div`
-    width: 100vw;
-    height: 100vh;
-    position: relative;
-`
-
-const DynamicDiv = styled.div`
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    width: calc(100vw - 250px);
-    height: calc(100vh - 80px);
-`
 
 export default Dashboard
