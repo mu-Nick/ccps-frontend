@@ -29,6 +29,8 @@ const Student = ({ user, notifications, setNotifications, onRouteChange }) => {
                 return <ViewComplaints user={user} />
             case 'newComplaint':
                 return <NewComplaint rollno={user.id} />
+            default:
+                return <></>
         }
     }
     return (

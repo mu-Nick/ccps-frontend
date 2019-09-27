@@ -8,13 +8,27 @@ const ViewComplaints = ({ user }) => {
     useEffect(() => {
         getStudentComplaints(user.id).then(response => {
             if (response.success) {
-                setComps(response.data)
+                setComps(
+                    response.data.map(comp => {
+                        return { ...comp, visibility: 'none' }
+                    })
+                )
                 console.log(response.data)
             } else {
                 console.log('COULDNT RETREIVE COMPLAINTS')
             }
         })
     }, [])
+
+    const changeVisibility = compID => {
+        const newComps = comps.map(comp => {
+            if (comp.ID === compID) {
+                comp.visibility = comp.visibility === 'none' ? '' : 'none'
+            }
+            return comp
+        })
+        setComps(newComps)
+    }
 
     const renderComplaints = () => {
         return comps.map(comp => (
@@ -25,14 +39,38 @@ const ViewComplaints = ({ user }) => {
                         {comp.Supporters === null ? 0 : comp.Supporters.length}
                     </h2>
                     <h2 className='f6 fw4 mt0 mb0 black-60'>{comp.DeptID}</h2>
+                    <div
+                        style={{
+                            display: comp.visibility
+                        }}
+                    >
+                        <h2 className='f6 fw4 mt0 mb0 black-60'>{comp.Description}</h2>
+                        <h2 className='f6 fw4 mt0 mb0 black-60'>{comp.Status}</h2>
+                        <label htmlFor='supporters'>Enter supporters to add </label>
+                        <input type='text' id='supporters' />
+                    </div>
                 </div>
                 <div className='dtc v-mid'>
                     <form className='w-100 tr'>
                         <button
+                            onClick={() => {
+                                changeVisibility(comp.ID)
+                            }}
                             type='button'
                             className='f6 bg-white ba b--black-10 dim pointer pv1 black-60'
                         >
-                            View
+                            {comp.visibility === 'none' ? 'View' : 'Hide'}
+                        </button>
+                        <br />
+                        <br />
+                        <button
+                            style={{
+                                display: comp.visibility
+                            }}
+                            type='button'
+                            className=' f6 bg-white ba b--black-10 dim pointer pv1 black-60'
+                        >
+                            Add
                         </button>
                     </form>
                 </div>
