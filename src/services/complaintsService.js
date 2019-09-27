@@ -1,6 +1,12 @@
 const url = 'https://ccps.herokuapp.com/complaint'
 
 export const newComplaint = (subject, description, rollno, deptid) => {
+    console.log({
+        subject,
+        description,
+        rollno,
+        deptid
+    })
     return fetch(`${url}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
