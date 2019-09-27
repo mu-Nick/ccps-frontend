@@ -14,10 +14,7 @@ const Home = () => {
 					</div>
 					<div className='dtc v-mid'>
 						<form className='w-100 tr'>
-							<button
-								className='f6 button-reset bg-white ba b--black-10 dim pointer pv1 black-60'
-								type='submit'
-							>
+							<button className='f6 bg-white ba b--black-10 dim pointer pv1 black-60'>
 								View
 							</button>
 						</form>
@@ -30,10 +27,7 @@ const Home = () => {
 					</div>
 					<div className='dtc v-mid'>
 						<form className='w-100 tr'>
-							<button
-								className='f6 button-reset bg-white ba b--black-10 dim pointer pv1 black-60'
-								type='submit'
-							>
+							<button className='f6 bg-white ba b--black-10 dim pointer pv1 black-60'>
 								View
 							</button>
 						</form>
@@ -46,10 +40,7 @@ const Home = () => {
 					</div>
 					<div className='dtc v-mid'>
 						<form className='w-100 tr'>
-							<button
-								className='f6 button-reset bg-white ba b--black-10 dim pointer pv1 black-60'
-								type='submit'
-							>
+							<button className='f6 bg-white ba b--black-10 dim pointer pv1 black-60'>
 								View
 							</button>
 						</form>
@@ -62,10 +53,7 @@ const Home = () => {
 					</div>
 					<div className='dtc v-mid'>
 						<form className='w-100 tr'>
-							<button
-								className='f6 button-reset bg-white ba b--black-10 dim pointer pv1 black-60'
-								type='submit'
-							>
+							<button className='f6 bg-white ba b--black-10 dim pointer pv1 black-60'>
 								View
 							</button>
 						</form>

@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import './App.css'
 
-import Department from './Components/Department/Department'
-import Header from './Components/Header/Header'
-import Login from './Components/Login/Login'
+import Department from './components/Department/Department'
+import Header from './components/Header/Header'
+import Login from './components/Login/Login'
 
 import Student from './components/Student'
 
@@ -17,13 +17,24 @@ const App = () => {
         else if (newRoute === 'student') setRoute('student')
         else if (newRoute === 'department') setRoute('department')
     }
+
+    const [user, setUser] = useState(null)
+    const loadUser = user => {
+        setUser({
+            id: user.id ? user.id : user.Roll,
+            name: user.Name,
+            email: user.Email
+        })
+        console.log(user)
+    }
+
     console.log(route)
     return (
         <>
             <Header />
 
             {route === 'login' ? (
-                <Login onRouteChange={onRouteChange} />
+                <Login onRouteChange={onRouteChange} loadUser={loadUser} />
             ) : route === 'student' ? (
                 <Student />
             ) : (
