@@ -1,12 +1,8 @@
 const url = 'https://ccps.herokuapp.com/department'
 
 // eslint-disable-next-line
-export const getStudentComplaints = id => {
-    return fetch(`${url}/complaints`, {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            deptid: id
-        })
+export const getDepartmentComplaints = deptid => {
+    return fetch(`${url}/${deptid}/complaints`, {
+        method: 'GET'
     }).then(response => response.json())
 }

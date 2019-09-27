@@ -21,11 +21,10 @@ const App = () => {
     const [user, setUser] = useState(null)
     const loadUser = user => {
         setUser({
-            id: user.id ? user.id : user.Roll,
+            id: user.ID ? user.ID : user.Roll,
             name: user.Name,
             email: user.Email
         })
-        console.log(user)
     }
 
     console.log(route)
@@ -33,6 +32,7 @@ const App = () => {
         <>
             <Header />
 
+            {/* eslint-disable-next-line */}
             {route === 'login' ? (
                 <Login onRouteChange={onRouteChange} loadUser={loadUser} />
             ) : route === 'student' ? (
