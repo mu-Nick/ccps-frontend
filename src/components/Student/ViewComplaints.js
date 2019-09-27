@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import { getStudentComplaints } from '../../services/studentService'
+import { sendSupportRequest } from '../../services/complaintsService'
 
 const ViewComplaints = ({ user }) => {
     const [comps, setComps] = useState([])
@@ -30,6 +31,22 @@ const ViewComplaints = ({ user }) => {
         setComps(newComps)
     }
 
+    const submit = compid => {
+        console.log('*********', compid, document.querySelector(`#supporters-${compid}`))
+
+        const supportersList = document
+            .querySelector(`#supporters-${compid}`)
+            .value.trim()
+            .split(',')
+            .map(i => parseInt(i, 10))
+
+        sendSupportRequest(compid, supportersList).then(result => {
+            if (result.success) {
+                console.log('Notification sent')
+            }
+        })
+    }
+
     const renderComplaints = () => {
         return comps.map(comp => (
             <article key={comp.ID} className='dt w-100 bb b--black-05 pb2 mt2' href='#0'>
@@ -46,8 +63,10 @@ const ViewComplaints = ({ user }) => {
                     >
                         <h2 className='f6 fw4 mt0 mb0 black-60'>{comp.Description}</h2>
                         <h2 className='f6 fw4 mt0 mb0 black-60'>{comp.Status}</h2>
-                        <label htmlFor='supporters'>Enter supporters to add </label>
-                        <input type='text' id='supporters' />
+                        <label htmlFor='supporters'>
+                            Enter supporters to add
+                            <input type='text' id={`supporters-${comp.ID}`} />
+                        </label>
                     </div>
                 </div>
                 <div className='dtc v-mid'>
@@ -69,6 +88,7 @@ const ViewComplaints = ({ user }) => {
                             }}
                             type='button'
                             className=' f6 bg-white ba b--black-10 dim pointer pv1 black-60'
+                            onClick={() => submit(comp.ID)}
                         >
                             Add
                         </button>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import { getDepartmentComplaints } from '../../services/departmentService'
+import { changeStatus } from '../../services/complaintsService'
 
 const Home = ({ deptid }) => {
     const [unprocessed, setUnprocessed] = useState([])
@@ -26,6 +27,19 @@ const Home = ({ deptid }) => {
         setUnprocessed(newComps)
     }
 
+    const setPending = compID => {
+        changeStatus(compID, 'Pending')
+            .then(response => {
+                if (response.success) {
+                    console.log('Status changed')
+                    setUnprocessed(unprocessed.filter(comp => comp.ID !== compID))
+                }
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
     const renderUnprocessedComplaints = () => {
         return unprocessed.map(comp => (
             <article key={comp.ID} className='dt w-100 bb b--black-05 pb2 mt2' href='#0'>
@@ -40,8 +54,9 @@ const Home = ({ deptid }) => {
                         }}
                     >
                         <h2 className='f6 fw4 mt0 mb0 black-60'>{comp.Description}</h2>
-                        <label htmlFor='supporters'>Set Status </label>
-                        <input type='text' id='status' />
+                        {/* <label htmlFor='supporters'>
+                            Set Status <input type='text' id='status' value={}/>
+                        </label> */}
                     </div>
                 </div>
                 <div className='dtc v-mid'>
@@ -63,6 +78,9 @@ const Home = ({ deptid }) => {
                             }}
                             type='button'
                             className=' f6 bg-white ba b--black-10 dim pointer pv1 black-60'
+                            onClick={() => {
+                                setPending(comp.ID)
+                            }}
                         >
                             Set
                         </button>

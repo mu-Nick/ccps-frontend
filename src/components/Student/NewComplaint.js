@@ -13,16 +13,23 @@ const NewComplaint = ({ rollno }) => {
         e.preventDefault()
         console.log('SUBMIT ME')
 
-        // const supportersList = suppList
-        //     .trim()
-        //     .split(',')
-        //     .map(i => parseInt(i, 10))
+        const supportersList = suppList
+            .trim()
+            .split(',')
+            .map(i => parseInt(i, 10))
 
         newComplaint(title, desc, rollno, dept)
             .then(response => {
                 console.log(response)
                 if (response.success) {
                     console.log('NEW COMPLAINT REGISTERED')
+                    if (supportersList.length > 0 && supportersList[0]) {
+                        sendSupportRequest(response.data.id, supportersList).then(result => {
+                            if (result.success) {
+                                console.log('Notification sent')
+                            }
+                        })
+                    }
                 } else {
                     console.log('FAILED TO REGISTER COMPLAINT')
                 }
@@ -30,14 +37,6 @@ const NewComplaint = ({ rollno }) => {
             .catch(err => {
                 console.log(err)
             })
-
-        // sendSupportRequest(dept, supportersList).then(response => {
-        //     if (response.success) {
-        //         console.log('NEW COMPLAINT REGISTERED')
-        //     } else {
-        //         console.log('FAILED TO REGISTER COMPLAINT')
-        //     }
-        // })
     }
 
     return (
@@ -88,7 +87,7 @@ const NewComplaint = ({ rollno }) => {
                         width: '100%'
                     }}
                 >
-                    Complaint Description :
+                    Add supporters (roll no) :
                     <TextArea
                         width='80%'
                         value={suppList}
@@ -96,7 +95,7 @@ const NewComplaint = ({ rollno }) => {
                     />
                 </Label>
                 <Button type='submit' onClick={submit}>
-                    Add Supporters :
+                    Register new complaint
                 </Button>
             </Form>
         </Main>

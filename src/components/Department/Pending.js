@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import { getDepartmentComplaints } from '../../services/departmentService'
+import { changeStatus } from '../../services/complaintsService'
 
 const Pending = ({ deptid }) => {
     const [pending, setPending] = useState([])
@@ -26,6 +27,19 @@ const Pending = ({ deptid }) => {
         setPending(newComps)
     }
 
+    const setResolved = compID => {
+        changeStatus(compID, 'Resolved')
+            .then(response => {
+                if (response.success) {
+                    console.log('Status changed')
+                    setPending(pending.filter(comp => comp.ID !== compID))
+                }
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
     const renderPendingComplaints = () => {
         return pending.map(comp => (
             <article key={comp.ID} className='dt w-100 bb b--black-05 pb2 mt2' href='#0'>
@@ -40,8 +54,8 @@ const Pending = ({ deptid }) => {
                         }}
                     >
                         <h2 className='f6 fw4 mt0 mb0 black-60'>{comp.Description}</h2>
-                        <label htmlFor='supporters'>Change Status </label>
-                        <input type='text' id='status' />
+                        {/* <label htmlFor='supporters'>Change Status </label>
+                        <input type='text' id='status' /> */}
                     </div>
                 </div>
                 <div className='dtc v-mid'>
@@ -63,6 +77,9 @@ const Pending = ({ deptid }) => {
                             }}
                             type='button'
                             className=' f6 bg-white ba b--black-10 dim pointer pv1 black-60'
+                            onClick={() => {
+                                setResolved(comp.ID)
+                            }}
                         >
                             Change
                         </button>
