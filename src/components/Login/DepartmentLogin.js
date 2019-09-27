@@ -32,7 +32,7 @@ const DepartmentLogin = ({ onRouteChange, loadUser }) => {
     return (
         <main className='pa4 black-80'>
             <form className='measure center' method='post'>
-                <fieldset id='sign_up' className='ba b--transparent ph0 mh0'>
+                <fieldset className='ba b--transparent ph0 mh0'>
                     <legend className='f4 fw6 ph0 mh0'>Department Login</legend>
                     <div className='mt3'>
                         <label className='db fw6 lh-copy f6' htmlFor='email-address'>
@@ -54,7 +54,6 @@ const DepartmentLogin = ({ onRouteChange, loadUser }) => {
                             className='b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100'
                             type='password'
                             name='password'
-                            id='password'
                             onChange={onPasswordChange}
                         />
                     </div>

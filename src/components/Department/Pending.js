@@ -7,9 +7,24 @@ const Pending = ({ deptid }) => {
 
     useEffect(() => {
         getDepartmentComplaints(deptid).then(result => {
-            setPending(result.data.filter(comp => comp.Status === 'Pending'))
+            const comps = result.data
+                .filter(comp => comp.Status === 'Pending')
+                .map(comp => {
+                    return { ...comp, visibility: 'none' }
+                })
+            setPending(comps)
         })
     }, [])
+
+    const changeVisibility = compID => {
+        const newComps = pending.map(comp => {
+            if (comp.ID === compID) {
+                comp.visibility = comp.visibility === 'none' ? '' : 'none'
+            }
+            return comp
+        })
+        setPending(newComps)
+    }
 
     const renderPendingComplaints = () => {
         return pending.map(comp => (
@@ -19,14 +34,37 @@ const Pending = ({ deptid }) => {
                     <h2 className='f6 fw4 mt0 mb0 black-60'>
                         {comp.Supporters === null ? 0 : comp.Supporters.length}
                     </h2>
+                    <div
+                        style={{
+                            display: comp.visibility
+                        }}
+                    >
+                        <h2 className='f6 fw4 mt0 mb0 black-60'>{comp.Description}</h2>
+                        <label htmlFor='supporters'>Change Status </label>
+                        <input type='text' id='status' />
+                    </div>
                 </div>
                 <div className='dtc v-mid'>
                     <form className='w-100 tr'>
                         <button
+                            onClick={() => {
+                                changeVisibility(comp.ID)
+                            }}
                             type='button'
                             className='f6 bg-white ba b--black-10 dim pointer pv1 black-60'
                         >
-                            View
+                            {comp.visibility === 'none' ? 'Show' : 'Hide'}
+                        </button>
+                        <br />
+                        <br />
+                        <button
+                            style={{
+                                display: comp.visibility
+                            }}
+                            type='button'
+                            className=' f6 bg-white ba b--black-10 dim pointer pv1 black-60'
+                        >
+                            Change
                         </button>
                     </form>
                 </div>

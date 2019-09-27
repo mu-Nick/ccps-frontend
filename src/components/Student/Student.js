@@ -20,6 +20,8 @@ const Student = ({ user, onRouteChange }) => {
                 return <ViewComplaints comps={comps} user={user} loadComplaintsloadComplaints />
             case 'newComplaint':
                 return <NewComplaint rollno={user.id} />
+            default:
+                return <></>
         }
     }
     return (
