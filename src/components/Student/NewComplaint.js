@@ -96,7 +96,7 @@ const NewComplaint = ({ rollno }) => {
                     />
                 </Label>
                 <Button type='submit' onClick={submit}>
-                    Submit complaint
+                    Add Supporters :
                 </Button>
             </Form>
         </Main>
@@ -112,6 +112,7 @@ const Main = styled.div`
     justify-content: start;
     align-items: center;
     transition: all 0.2s;
+    margin-left: 10%;
 `
 
 const Heading = styled.h1`

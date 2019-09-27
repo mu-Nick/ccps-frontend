@@ -32,20 +32,36 @@ const Dashboard = ({ user, notifications, setNotifications }) => {
 
     return (
         <>
-            <div className='ma5'>
-                <div className='fl w-100 w-33-ns tc pv5 '>
-                    <h1>{user.id}</h1>
+            <div className='db center mw5 tc black'>
+                <img
+                    className='db ba b--black-10'
+                    alt='Frank Ocean Blonde Album Cover'
+                    src='https://imageog.flaticon.com/icons/png/512/16/16480.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF'
+                />
+
+                <dl className='mt2 f6 lh-copy'>
+                    <dd className='ml0'>{user.id}</dd>
+                    <dd className='ml0 gray'>{user.name}</dd>
+                    <dd className='ml0 gray'>{user.email}</dd>
+                </dl>
+            </div>
+            <div>
+                <div className='center mw6'>
+                    <h1 className=''>Notifications</h1>
                 </div>
-                <div className='fl w-100 w-33-ns tc pv5'>
-                    <h1>{user.name}</h1>
-                </div>
-                <div className='fl w-100 w-33-ns tc pv5'>
-                    <h1>{user.email}</h1>
-                </div>
-                <div className='fl w-100 w-100-ns tc pv2'>
-                    <h1>Notifications</h1>
-                </div>
-                <div className='fl w-100 w-100-ns tc pv2'>{renderNotifications()}</div>
+                <ul className='list pl0 mt0 measure center'>
+                    <li className='flex items-center lh-copy pa3 ph0-l bb b--black-10'>
+                        <div className='pl3 flex-auto'>
+                            <span className='f6 db black-70'>Subjet</span>
+                            <span className='f6 db black-70'>Supporters</span>
+                        </div>
+                        <div>
+                            <button href='#0' className='f6 link blue hover-dark-gray'>
+                                Support
+                            </button>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </>
     )
