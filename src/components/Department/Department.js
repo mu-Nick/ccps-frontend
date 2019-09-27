@@ -5,22 +5,22 @@ import Home from './Home'
 import Pending from './Pending'
 // import ViewComplaint from '../ViewComplaint/ViewComplaint'
 
-const Department = ({ onRouteChange }) => {
-	const [iface, setIface] = useState('home')
+const Department = ({ user, onRouteChange }) => {
+    const [iface, setIface] = useState('home')
 
-	const onIfaceChange = newRoute => {
-		if (newRoute === 'home') setIface('home')
-		else if (newRoute === 'pending') setIface('pending')
-		else if (newRoute === 'logout') onRouteChange('login')
-	}
+    const onIfaceChange = newRoute => {
+        if (newRoute === 'home') setIface('home')
+        else if (newRoute === 'pending') setIface('pending')
+        else if (newRoute === 'logout') onRouteChange('login')
+    }
 
-	return (
-		<div>
-			<Sidenav onIfaceChange={onIfaceChange} />
-			{iface === 'home' ? <Home /> : <Pending />}
-			{/*<ViewComplaint />*/}
-		</div>
-	)
+    return (
+        <div>
+            <Sidenav onIfaceChange={onIfaceChange} />
+            {iface === 'home' ? <Home deptid={user.id} /> : <Pending deptid={user.id} />}
+            {/*<ViewComplaint />*/}
+        </div>
+    )
 }
 
 export default Department

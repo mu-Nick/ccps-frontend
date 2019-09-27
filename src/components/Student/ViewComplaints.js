@@ -18,11 +18,7 @@ const ViewComplaints = ({ user }) => {
 
     const renderComplaints = () => {
         return comps.map(comp => (
-            <article
-                key={new Date().getTime()}
-                className='dt w-100 bb b--black-05 pb2 mt2'
-                href='#0'
-            >
+            <article key={comp.ID} className='dt w-100 bb b--black-05 pb2 mt2' href='#0'>
                 <div className='dtc v-mid pl3'>
                     <h1 className='f6 f5-ns fw6 lh-title black mv0'>{comp.Subject}</h1>
                     <h2 className='f6 fw4 mt0 mb0 black-60'>
