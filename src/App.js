@@ -5,7 +5,7 @@ import Department from './components/Department/Department'
 import Header from './components/Header/Header'
 import Login from './components/Login/Login'
 
-import Student from './components/Student'
+import Student from './components/Student/Student'
 
 import 'tachyons'
 
@@ -36,9 +36,9 @@ const App = () => {
             {route === 'login' ? (
                 <Login onRouteChange={onRouteChange} loadUser={loadUser} />
             ) : route === 'student' ? (
-                <Student onRouteChange={onRouteChange} />
+                <Student onRouteChange={onRouteChange} user={user} />
             ) : (
-                <Department onRouteChange={onRouteChange} />
+                <Department onRouteChange={onRouteChange} user={user} />
             )}
         </>
     )

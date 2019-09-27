@@ -1,17 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import styled from 'styled-components'
 
-const complaints = {
-    Computer: ['Windows XP'],
-    Hostel: ['Lack of cleanliness in hostel 10', 'High Mess bill in H-4']
-}
+// const complaints = {
+//     Computer: ['Windows XP'],
+//     Hostel: ['Lack of cleanliness in hostel 10', 'High Mess bill in H-4']
+// }
 
-const depts = ['Computer', 'Hostel']
+// const depts = ['Computer', 'Hostel']
 
-const Dashboard = () => {
-    const [comps, setComps] = useState(complaints)
-    const [departments, setDepartments] = useState(depts)
+const Dashboard = ({ user }) => {
+    // const [departments, setDepartments] = useState(depts)
 
     return (
         <>

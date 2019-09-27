@@ -1,45 +1,49 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
-const NewComplaint = () => {
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
+import { newComplaint, sendSupportRequest } from '../../services/complaintsService'
+
+const NewComplaint = ({ rollno }) => {
     const [title, setTitle] = useState('')
     const [dept, setDept] = useState('')
     const [desc, setDesc] = useState('')
+    const [suppList, setSuppList] = useState('')
 
     const submit = e => {
         e.preventDefault()
+        console.log('SUBMIT ME')
+
+        // const supportersList = suppList
+        //     .trim()
+        //     .split(',')
+        //     .map(i => parseInt(i, 10))
+
+        newComplaint(title, desc, rollno, dept)
+            .then(response => {
+                console.log(response)
+                if (response.success) {
+                    console.log('NEW COMPLAINT REGISTERED')
+                } else {
+                    console.log('FAILED TO REGISTER COMPLAINT')
+                }
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
+        // sendSupportRequest(dept, supportersList).then(response => {
+        //     if (response.success) {
+        //         console.log('NEW COMPLAINT REGISTERED')
+        //     } else {
+        //         console.log('FAILED TO REGISTER COMPLAINT')
+        //     }
+        // })
     }
 
     return (
         <Main>
             <Heading>Submit a new complaint : </Heading>
-            <Form onSubmit={submit}>
-                <Label for='name'>
-                    Your Name :
-                    <Input
-                        type='text'
-                        name='name'
-                        id='name'
-                        width='80%'
-                        value={name}
-                        onChange={e => setName(e.target.value)}
-                        required
-                    />
-                </Label>
-                <Label for='email'>
-                    Your Email ID :
-                    <Input
-                        type='email'
-                        name='email'
-                        id='email'
-                        width='80%'
-                        value={email}
-                        onChange={e => setEmail(e.target.value)}
-                        required
-                    />
-                </Label>
+            <Form>
                 <Label for='title'>
                     Complaint Title :
                     <Input
@@ -78,7 +82,22 @@ const NewComplaint = () => {
                         required
                     />
                 </Label>
-                <Button type='submit'>Submit complaint</Button>
+                <Label
+                    for='supporters'
+                    style={{
+                        width: '100%'
+                    }}
+                >
+                    Complaint Description :
+                    <TextArea
+                        width='80%'
+                        value={suppList}
+                        onChange={e => setSuppList(e.target.value)}
+                    />
+                </Label>
+                <Button type='submit' onClick={submit}>
+                    Submit complaint
+                </Button>
             </Form>
         </Main>
     )
