@@ -77,17 +77,16 @@ const NewComplaint = ({ rollno }) => {
                         onChange={e => setDept(e.target.value)}
                     >
                         <option disabled value=''>
-                            {' '}
-                            -- select a department --{' '}
+                            -- select a department --
                         </option>
-                        <option value='Academic'>Academic</option>
-                        <option value='Accounts'>Accounts</option>
-                        <option value='Cleanliness'>Cleanliness</option>
-                        <option value='Electricity'>Electricity</option>
-                        <option value='Internet'>Internet</option>
-                        <option value='Mess'>Mess</option>
-                        <option value='Sports'>Sports</option>
-                        <option value='Training & Placement'>Training & Placement</option>
+                        <option value='Academic@nitkkr'>Academic</option>
+                        <option value='Accounts@nitkkr'>Accounts</option>
+                        <option value='Cleanliness@nitkkr'>Cleanliness</option>
+                        <option value='Electricity@nitkkr'>Electricity</option>
+                        <option value='Internet@nitkkr'>Internet</option>
+                        <option value='Mess@nitkkr'>Mess</option>
+                        <option value='Sports@nitkkr'>Sports</option>
+                        <option value='Training&Placement@nitkkr'>Training & Placement</option>
                     </select>
                 </Label>
                 <Label
