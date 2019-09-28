@@ -15,6 +15,7 @@ const Sidenav = ({ match, history, setUser }) => {
                     history.push('/login')
                 }
             }}
+            style={{ position: 'fixed' }}
         >
             <SideNav.Toggle />
             <SideNav.Nav defaultSelected='home'>
