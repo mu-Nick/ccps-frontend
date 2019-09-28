@@ -30,7 +30,6 @@ const NewComplaint = ({ rollno }) => {
         if (supportersList.length > 100) {
             return alert('Maximum limit to add supporters reached')
         }
-        supportersList.filter(supporter => return supporter !== rollno);
 
         newComplaint(title, desc, rollno, dept)
             .then(response => {
@@ -38,7 +37,10 @@ const NewComplaint = ({ rollno }) => {
                 if (response.success) {
                     console.log('NEW COMPLAINT REGISTERED')
                     if (supportersList.length > 0 && supportersList[0]) {
-                        sendSupportRequest(response.data.id, supportersList).then(result => {
+                        sendSupportRequest(
+                            response.data.id,
+                            supportersList.filter(supporter => supporter !== rollno)
+                        ).then(result => {
                             if (result.success) {
                                 console.log('Notification sent')
                             }
