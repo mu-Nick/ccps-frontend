@@ -14,17 +14,16 @@ const ViewComplaints = ({ user }) => {
                         return { ...comp, visibility: 'none' }
                     })
                 )
-                console.log(response.data)
             } else {
                 console.log('COULDNT RETREIVE COMPLAINTS')
             }
         })
-    }, [])
+    }, [user.id])
 
     const changeVisibility = compID => {
         const newComps = comps.map(comp => {
             if (comp.ID === compID) {
-                comp.visibility = comp.visibility === 'none' ? '' : 'none'
+                return { ...comp, visibility: comp.visibility === 'none' ? '' : 'none' }
             }
             return comp
         })
@@ -32,8 +31,6 @@ const ViewComplaints = ({ user }) => {
     }
 
     const submit = compid => {
-        console.log('*********', compid, document.querySelector(`#supporters-${compid}`))
-
         const supportersList = document
             .querySelector(`#supporters-${compid}`)
             .value.trim()

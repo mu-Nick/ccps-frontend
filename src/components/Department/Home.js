@@ -19,7 +19,7 @@ const Home = ({ user }) => {
                 })
             setUnprocessed(comps)
         })
-    }, [])
+    }, [user.id])
 
     const changeVisibility = compID => {
         const newComps = unprocessed.map(comp => {
@@ -38,7 +38,6 @@ const Home = ({ user }) => {
         setPending(compID)
             .then(response => {
                 if (response.success) {
-                    console.log('Status changed')
                     setUnprocessed(unprocessed.filter(comp => comp.ID !== compID))
                 }
             })
@@ -48,7 +47,7 @@ const Home = ({ user }) => {
     }
 
     const renderUnprocessedComplaints = () => {
-        unprocessed.sort((a, b) => (a.supportersCount > b.supportersCount ? -1 : 1))
+        unprocessed.sort((a, b) => b.supportersCount - a.supportersCount)
         return unprocessed.map(comp => (
             <article key={comp.ID} className='dt w-100 bb b--black-05 pb2 mt2' href='#0'>
                 <div className='dtc v-mid pl3'>
