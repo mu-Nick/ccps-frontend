@@ -3,9 +3,11 @@ import React, { useState, useEffect } from 'react'
 import { getDepartmentComplaints } from '../../services/departmentService'
 import { setPending } from '../../services/complaintsService'
 
+// Displays unresolved/new complaints for this department
 const Home = ({ user }) => {
     const [unprocessed, setUnprocessed] = useState([])
 
+    // Fetch the unresolved complaints
     useEffect(() => {
         getDepartmentComplaints(user.id).then(result => {
             const comps = result.data
@@ -21,6 +23,7 @@ const Home = ({ user }) => {
         })
     }, [user.id])
 
+    // To expand the description of complaint
     const changeVisibility = compID => {
         const newComps = unprocessed.map(comp => {
             if (comp.ID === compID) {
@@ -34,18 +37,21 @@ const Home = ({ user }) => {
         setUnprocessed(newComps)
     }
 
+    // Set this complaint's status to pending
     const setToPending = compID => {
         setPending(compID)
             .then(response => {
                 if (response.success) {
+                    // Remove this complaint from state
                     setUnprocessed(unprocessed.filter(comp => comp.ID !== compID))
                 }
             })
-            .catch(err => {
-                console.log(err)
+            .catch(() => {
+                alert("Couldn't change status, please try again later")
             })
     }
 
+    // Render all the complaints sorted by status
     const renderUnprocessedComplaints = () => {
         unprocessed.sort((a, b) => b.supportersCount - a.supportersCount)
         return unprocessed.map(comp => (
@@ -111,9 +117,8 @@ const Home = ({ user }) => {
             </div>
             <main className='mw8 center'>
                 <div className=''>
-                    <h1>
-                        Recent Unprocessed Complaints (Ranked according to number of supporters)
-                    </h1>
+                    <h1>Recent Unprocessed Complaints</h1>
+                    <h5>Ranked by supporter count</h5>
                 </div>
                 {renderUnprocessedComplaints()}
             </main>
