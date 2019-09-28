@@ -7,6 +7,7 @@ const Pending = ({ deptid }) => {
     const [pending, setPending] = useState([])
 
     useEffect(() => {
+        console.log('RENDERING PENDING')
         getDepartmentComplaints(deptid).then(result => {
             const comps = result.data
                 .filter(comp => comp.Status === 'Pending')
@@ -24,7 +25,10 @@ const Pending = ({ deptid }) => {
     const changeVisibility = compID => {
         const newComps = pending.map(comp => {
             if (comp.ID === compID) {
-                comp.visibility = comp.visibility === 'none' ? '' : 'none'
+                return {
+                    ...comp,
+                    visibility: comp.visibility === 'none' ? '' : 'none'
+                }
             }
             return comp
         })

@@ -24,7 +24,10 @@ const Home = ({ user }) => {
     const changeVisibility = compID => {
         const newComps = unprocessed.map(comp => {
             if (comp.ID === compID) {
-                comp.visibility = comp.visibility === 'none' ? '' : 'none'
+                return {
+                    ...comp,
+                    visibility: comp.visibility === 'none' ? '' : 'none'
+                }
             }
             return comp
         })
@@ -59,9 +62,6 @@ const Home = ({ user }) => {
                         }}
                     >
                         <h2 className='f6 fw4 mt0 mb0 black-60'>{comp.Description}</h2>
-                        {/* <label htmlFor='supporters'>
-                            Set Status <input type='text' id='status' value={}/>
-                        </label> */}
                     </div>
                 </div>
                 <div className='dtc v-mid'>
