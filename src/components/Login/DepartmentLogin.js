@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
+import { withRouter } from 'react-router-dom'
+
 import { departmentLogin } from '../../services/loginService'
 
-const DepartmentLogin = ({ onRouteChange, loadUser }) => {
+const DepartmentLogin = ({ history, loadUser }) => {
     const [signInId, setId] = useState(null)
     const [signInPassword, setPassword] = useState(null)
 
@@ -22,7 +24,7 @@ const DepartmentLogin = ({ onRouteChange, loadUser }) => {
         departmentLogin(signInId, signInPassword).then(response => {
             if (response.success) {
                 loadUser(response.data)
-                onRouteChange('department')
+                history.push(`/department/${response.data.ID}`)
             } else {
                 console.log('Department login error')
             }
@@ -37,32 +39,33 @@ const DepartmentLogin = ({ onRouteChange, loadUser }) => {
                     <div className='mt3'>
                         <label className='db fw6 lh-copy f6' htmlFor='email-address'>
                             Department ID
+                            <input
+                                className='pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100'
+                                type='text'
+                                name='departmentId'
+                                id='departmentId'
+                                onChange={onIdChange}
+                            />
                         </label>
-                        <input
-                            className='pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100'
-                            type='text'
-                            name='departmentId'
-                            id='departmentId'
-                            onChange={onIdChange}
-                        />
                     </div>
                     <div className='mv3'>
                         <label className='db fw6 lh-copy f6' htmlFor='password'>
                             Password
+                            <input
+                                className='b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100'
+                                type='password'
+                                name='password'
+                                onChange={onPasswordChange}
+                            />
                         </label>
-                        <input
-                            className='b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100'
-                            type='password'
-                            name='password'
-                            onChange={onPasswordChange}
-                        />
                     </div>
-                    <label className='pa0 ma0 lh-copy f6 pointer'>
-                        <input type='checkbox' /> Remember me
+                    <label className='pa0 ma0 lh-copy f6 pointer' htmlFor='remember'>
+                        <input type='checkbox' id='remember' /> Remember me
                     </label>
                 </fieldset>
                 <div className=''>
                     <button
+                        type='button'
                         className='b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib'
                         onClick={onSubmitSignin}
                     >
@@ -74,4 +77,4 @@ const DepartmentLogin = ({ onRouteChange, loadUser }) => {
     )
 }
 
-export default DepartmentLogin
+export default withRouter(DepartmentLogin)
