@@ -20,7 +20,6 @@ const NewComplaint = ({ rollno }) => {
         if (desc > 100) {
             return alert('Complaint Description too long')
         }
-        console.log('SUBMIT ME')
 
         const supportersList = suppList
             .trim()
@@ -30,13 +29,11 @@ const NewComplaint = ({ rollno }) => {
         if (supportersList.length > 100) {
             return alert('Maximum limit to add supporters reached')
         }
-        supportersList.filter(supporter => return supporter !== rollno);
+        supportersList.filter(supporter => supporter !== rollno)
 
         newComplaint(title, desc, rollno, dept)
             .then(response => {
-                console.log(response)
                 if (response.success) {
-                    console.log('NEW COMPLAINT REGISTERED')
                     if (supportersList.length > 0 && supportersList[0]) {
                         sendSupportRequest(response.data.id, supportersList).then(result => {
                             if (result.success) {
@@ -76,7 +73,6 @@ const NewComplaint = ({ rollno }) => {
                     <select
                         name='dept'
                         id='dept'
-                        value=''
                         width='80%'
                         value={dept}
                         onChange={e => setDept(e.target.value)}

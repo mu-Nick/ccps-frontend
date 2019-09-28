@@ -9,11 +9,10 @@ const Dashboard = ({ user }) => {
     useEffect(() => {
         getStudentNotifications(user.id).then(response => {
             if (response.success) {
-                console.log(response.data.notifications)
                 setNotifications(response.data.notifications)
             }
         })
-    }, [])
+    }, [user.id])
 
     const approveRequest = notification => {
         if (notification.type === 'COMP_RES') {
