@@ -6,7 +6,7 @@ import SideNav from './SideNav'
 import ViewComplaints from './ViewComplaints'
 import NewComplaint from './NewComplaint'
 
-const Student = ({ match, user, setUser, notifications, setNotifications }) => {
+const Student = ({ match, user, setUser }) => {
     return (
         <>
             <SideNav user={user} setUser={setUser} />
@@ -18,11 +18,7 @@ const Student = ({ match, user, setUser, notifications, setNotifications }) => {
                     <ViewComplaints user={user} />
                 </Route>
                 <Route path={`${match.path}`}>
-                    <Dashboard
-                        user={user}
-                        notifications={notifications}
-                        setNotifications={setNotifications}
-                    />
+                    <Dashboard user={user} />
                 </Route>
             </Switch>
         </>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import { getDepartmentComplaints } from '../../services/departmentService'
-import { changeStatus } from '../../services/complaintsService'
+import { markResolved } from '../../services/complaintsService'
 
 const Pending = ({ deptid }) => {
     const [pending, setPending] = useState([])
@@ -36,11 +36,11 @@ const Pending = ({ deptid }) => {
     }
 
     const setResolved = compID => {
-        changeStatus(compID, 'Resolved')
+        markResolved(compID)
             .then(response => {
                 if (response.success) {
                     console.log('Status changed')
-                    setPending(pending.filter(comp => comp.ID !== compID))
+                    // setPending(pending.filter(comp => comp.ID !== compID))
                 }
             })
             .catch(err => {
