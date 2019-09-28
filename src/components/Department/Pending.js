@@ -12,7 +12,11 @@ const Pending = ({ deptid }) => {
             const comps = result.data
                 .filter(comp => comp.Status === 'Pending')
                 .map(comp => {
-                    return { ...comp, visibility: 'none' }
+                    return {
+                        ...comp,
+                        visibility: 'none',
+                        supportersCount: comp.Supporters !== null ? comp.Supporters.length : 0
+                    }
                 })
             setPending(comps)
         })
@@ -45,6 +49,7 @@ const Pending = ({ deptid }) => {
     }
 
     const renderPendingComplaints = () => {
+        pending.sort((a, b) => (a.supportersCount > b.supportersCount ? -1 : 1))
         return pending.map(comp => (
             <article key={comp.ID} className='dt w-100 bb b--black-05 pb2 mt2' href='#0'>
                 <div className='dtc v-mid pl3'>
@@ -85,7 +90,7 @@ const Pending = ({ deptid }) => {
                                 setResolved(comp.ID)
                             }}
                         >
-                            Change
+                            Set Status Resolved
                         </button>
                     </form>
                 </div>
@@ -97,7 +102,7 @@ const Pending = ({ deptid }) => {
         <div>
             <main className='mw8 center'>
                 <div className=''>
-                    <h1>Pending Complaints</h1>
+                    <h1>Pending Complaints (Ranked according to the number of supporters)</h1>
                 </div>
                 {renderPendingComplaints()}
             </main>

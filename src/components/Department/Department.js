@@ -22,10 +22,9 @@ const Department = ({ user, match }) => {
                     <Pending deptid={user.id} />
                 </Route>
                 <Route path={`${match.path}`}>
-                    <Home deptid={user.id} />
+                    <Home user={user} />
                 </Route>
             </Switch>
-            {/* {iface === 'home' ?  : <Pending deptid={user.id} />} */}
         </div>
     )
 }

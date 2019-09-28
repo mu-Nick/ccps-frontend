@@ -6,7 +6,7 @@ import '@trendmicro/react-sidenav/dist/react-sidenav.css'
 
 const Sidenav = ({ match }) => {
     return (
-        <SideNav>
+        <SideNav className='fixed'>
             <SideNav.Toggle />
             <SideNav.Nav defaultSelected='dashboard'>
                 <NavItem eventKey='dashboard'>
