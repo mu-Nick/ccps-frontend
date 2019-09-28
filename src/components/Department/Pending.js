@@ -7,7 +7,6 @@ const Pending = ({ deptid }) => {
     const [pending, setPending] = useState([])
 
     useEffect(() => {
-        console.log('RENDERING PENDING')
         getDepartmentComplaints(deptid).then(result => {
             const comps = result.data
                 .filter(comp => comp.Status === 'Pending')
@@ -20,7 +19,7 @@ const Pending = ({ deptid }) => {
                 })
             setPending(comps)
         })
-    }, [])
+    }, [deptid])
 
     const changeVisibility = compID => {
         const newComps = pending.map(comp => {
@@ -39,8 +38,7 @@ const Pending = ({ deptid }) => {
         markResolved(compID)
             .then(response => {
                 if (response.success) {
-                    console.log('Status changed')
-                    // setPending(pending.filter(comp => comp.ID !== compID))
+                    alert('Will be removed when complaint opener confirms resolve')
                 }
             })
             .catch(err => {
@@ -49,7 +47,7 @@ const Pending = ({ deptid }) => {
     }
 
     const renderPendingComplaints = () => {
-        pending.sort((a, b) => (a.supportersCount > b.supportersCount ? -1 : 1))
+        pending.sort((a, b) => b.supportersCount - a.supportersCount)
         return pending.map(comp => (
             <article key={comp.ID} className='dt w-100 bb b--black-05 pb2 mt2' href='#0'>
                 <div className='dtc v-mid pl3'>
@@ -63,8 +61,6 @@ const Pending = ({ deptid }) => {
                         }}
                     >
                         <h2 className='f6 fw4 mt0 mb0 black-60'>{comp.Description}</h2>
-                        {/* <label htmlFor='supporters'>Change Status </label>
-                        <input type='text' id='status' /> */}
                     </div>
                 </div>
                 <div className='dtc v-mid'>

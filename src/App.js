@@ -20,9 +20,7 @@ const App = () => {
     }
 
     useEffect(() => {
-        console.log('RENDERING IN APP BABY')
         if (localStorage.getItem('user')) {
-            console.log(localStorage.getItem('user'))
             const user = JSON.parse(localStorage.getItem('user'))
             setUser({
                 id: user.ID ? user.ID : user.Roll,
@@ -38,13 +36,11 @@ const App = () => {
 
     // Handles other routes
     const redirectOtherRoute = () => {
-        // console.log(user, 'DOTHATDAMMIT')
         if (user) {
             if (user.type === 'department') {
                 return <Redirect to={`/department/${user.id}`} />
             }
             if (user.type === 'student') {
-                console.log(user.id)
                 return <Redirect to={`/student/${user.id}`} />
             }
         }
