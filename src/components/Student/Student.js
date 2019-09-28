@@ -1,44 +1,32 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { Switch, Route, withRouter } from 'react-router-dom'
+
 import Dashboard from './Dashboard'
 import SideNav from './SideNav'
 import ViewComplaints from './ViewComplaints'
 import NewComplaint from './NewComplaint'
 
-const Student = ({ user, notifications, setNotifications, onRouteChange }) => {
-    const [Iface, setIface] = useState('dashboard')
-    const onIfaceChange = newIface => {
-        if (newIface !== 'logout') setIface(newIface)
-        else {
-            onRouteChange('login')
-            setNotifications([])
-        }
-    }
-
-    const renderComponents = () => {
-        // eslint-disable-next-line
-        switch (Iface) {
-            case 'dashboard':
-                return (
+const Student = ({ match, user, setUser, notifications, setNotifications }) => {
+    return (
+        <>
+            <SideNav user={user} setUser={setUser} />
+            <Switch>
+                <Route path={`${match.path}/newcomplaint`}>
+                    <NewComplaint rollno={user.id} />
+                </Route>
+                <Route path={`${match.path}/viewcomplaints`}>
+                    <ViewComplaints user={user} />
+                </Route>
+                <Route path={`${match.path}`}>
                     <Dashboard
                         user={user}
                         notifications={notifications}
                         setNotifications={setNotifications}
                     />
-                )
-            case 'viewComplaints':
-                return <ViewComplaints user={user} />
-            case 'newComplaint':
-                return <NewComplaint rollno={user.id} />
-            default:
-                return <></>
-        }
-    }
-    return (
-        <>
-            <SideNav onIfaceChange={onIfaceChange} />
-            {renderComponents()}
+                </Route>
+            </Switch>
         </>
     )
 }
 
-export default Student
+export default withRouter(Student)
