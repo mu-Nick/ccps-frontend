@@ -6,10 +6,10 @@ import SideNav from './SideNav'
 import ViewComplaints from './ViewComplaints'
 import NewComplaint from './NewComplaint'
 
-const Student = ({ match, user, notifications, setNotifications }) => {
+const Student = ({ match, user, setUser, notifications, setNotifications }) => {
     return (
         <>
-            <SideNav user={user} />
+            <SideNav user={user} setUser={setUser} />
             <Switch>
                 <Route path={`${match.path}/newcomplaint`}>
                     <NewComplaint rollno={user.id} />

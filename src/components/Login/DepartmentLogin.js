@@ -6,6 +6,7 @@ import { departmentLogin } from '../../services/loginService'
 const DepartmentLogin = ({ history, loadUser }) => {
     const [signInId, setId] = useState(null)
     const [signInPassword, setPassword] = useState(null)
+    const [rememberMe, setRememberMe] = useState(false)
 
     const onIdChange = event => {
         setId(event.target.value)
@@ -24,6 +25,13 @@ const DepartmentLogin = ({ history, loadUser }) => {
         departmentLogin(signInId, signInPassword).then(response => {
             if (response.success) {
                 loadUser(response.data)
+                localStorage.clear()
+                if (rememberMe) {
+                    localStorage.setItem(
+                        'user',
+                        JSON.stringify({ ...response.data, type: 'department' })
+                    )
+                }
                 history.push(`/department/${response.data.ID}`)
             } else {
                 console.log('Department login error')
@@ -59,8 +67,16 @@ const DepartmentLogin = ({ history, loadUser }) => {
                             />
                         </label>
                     </div>
-                    <label className='pa0 ma0 lh-copy f6 pointer' htmlFor='remember'>
-                        <input type='checkbox' id='remember' /> Remember me
+                    <label className='pa0 ma0 lh-copy f6 pointer' htmlFor='rememberDep'>
+                        <input
+                            type='checkbox'
+                            id='rememberDep'
+                            checked={rememberMe}
+                            onChange={e => {
+                                setRememberMe(!rememberMe)
+                            }}
+                        />
+                        Remember me
                     </label>
                 </fieldset>
                 <div className=''>

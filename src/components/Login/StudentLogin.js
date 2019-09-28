@@ -6,6 +6,7 @@ import { studentLogin } from '../../services/loginService'
 const StudentLogin = ({ history, loadUser }) => {
     const [signInRoll, setRoll] = useState(null)
     const [signInPassword, setPassword] = useState(null)
+    const [rememberMe, setRememberMe] = useState(false)
 
     const onRollChange = event => {
         setRoll(event.target.value)
@@ -24,6 +25,13 @@ const StudentLogin = ({ history, loadUser }) => {
         studentLogin(signInRoll, signInPassword).then(response => {
             if (response.success) {
                 loadUser(response.data)
+                localStorage.clear()
+                if (rememberMe) {
+                    localStorage.setItem(
+                        'user',
+                        JSON.stringify({ ...response.data, type: 'student' })
+                    )
+                }
                 history.push(`/student/${response.data.Roll}`)
             } else {
                 console.log('STUDENT LOGIN ERROR')
@@ -59,8 +67,16 @@ const StudentLogin = ({ history, loadUser }) => {
                             />
                         </label>
                     </div>
-                    <label className='pa0 ma0 lh-copy f6 pointer' htmlFor='remember'>
-                        <input type='checkbox' id='remember' /> Remember me
+                    <label className='pa0 ma0 lh-copy f6 pointer' htmlFor='rememberStu'>
+                        <input
+                            type='checkbox'
+                            id='rememberStu'
+                            checked={rememberMe}
+                            onChange={e => {
+                                setRememberMe(!rememberMe)
+                            }}
+                        />
+                        Remember me
                     </label>
                 </fieldset>
                 <div className=''>

@@ -4,9 +4,18 @@ import { Link, withRouter } from 'react-router-dom'
 import SideNav, { NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav'
 import '@trendmicro/react-sidenav/dist/react-sidenav.css'
 
-const Sidenav = ({ match }) => {
+const Sidenav = ({ match, history, setUser }) => {
     return (
-        <SideNav className='fixed'>
+        <SideNav
+            className='fixed'
+            onSelect={selected => {
+                if (selected === 'logout') {
+                    localStorage.clear()
+                    setUser(null)
+                    history.push('/login')
+                }
+            }}
+        >
             <SideNav.Toggle />
             <SideNav.Nav defaultSelected='dashboard'>
                 <NavItem eventKey='dashboard'>
@@ -35,9 +44,7 @@ const Sidenav = ({ match }) => {
                 </NavItem>
                 <NavItem eventKey='logout'>
                     <NavIcon>
-                        <Link to='/login'>
-                            <i className='fa fa-sign-out' style={{ fontSize: '1.75em' }} />
-                        </Link>
+                        <i className='fa fa-sign-out' style={{ fontSize: '1.75em' }} />
                     </NavIcon>
                     <NavText>Logout</NavText>
                 </NavItem>

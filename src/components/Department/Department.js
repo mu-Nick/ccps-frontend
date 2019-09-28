@@ -5,7 +5,7 @@ import Sidenav from './SideNav'
 import Home from './Home'
 import Pending from './Pending'
 
-const Department = ({ user, match }) => {
+const Department = ({ user, setUser, match }) => {
     // const [iface, setIface] = useState('home')
 
     // const onIfaceChange = newRoute => {
@@ -16,7 +16,7 @@ const Department = ({ user, match }) => {
 
     return (
         <div>
-            <Sidenav />
+            <Sidenav setUser={setUser} />
             <Switch>
                 <Route path={`${match.path}/pending`}>
                     <Pending deptid={user.id} />
