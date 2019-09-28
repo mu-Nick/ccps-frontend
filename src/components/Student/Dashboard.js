@@ -36,6 +36,9 @@ const Dashboard = ({ user }) => {
     }
 
     const renderSupportNotifications = () => {
+        if (!notifications) {
+            return <p>No notifications</p>
+        }
         return notifications
             .filter(notification => notification.type === 'SUP_REQ')
             .map(notification => (
@@ -63,6 +66,9 @@ const Dashboard = ({ user }) => {
     }
 
     const renderConfirmationNotifications = () => {
+        if (!notifications) {
+            return <p>No notifications</p>
+        }
         return notifications
             .filter(notification => notification.type === 'COMP_RES')
             .map(notification => (

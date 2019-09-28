@@ -1,5 +1,6 @@
 const url = 'https://ccps.herokuapp.com/login'
 
+// to login department
 export const departmentLogin = (signInId, signInPassword) => {
     return fetch(`${url}/department`, {
         method: 'post',
@@ -11,6 +12,7 @@ export const departmentLogin = (signInId, signInPassword) => {
     }).then(response => response.json())
 }
 
+// to login student
 export const studentLogin = (signInRoll, signInPassword) => {
     return fetch(`${url}/student`, {
         method: 'post',

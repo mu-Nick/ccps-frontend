@@ -10,6 +10,7 @@ const App = () => {
     const [render, setRender] = useState(false)
     const [user, setUser] = useState(null)
 
+    // Load the user in state
     const loadUser = user => {
         setUser({
             id: user.ID ? user.ID : user.Roll,
@@ -19,6 +20,7 @@ const App = () => {
         })
     }
 
+    // Load user from browser localStorage if persists
     useEffect(() => {
         if (localStorage.getItem('user')) {
             const user = JSON.parse(localStorage.getItem('user'))
@@ -34,7 +36,7 @@ const App = () => {
         }
     }, [])
 
-    // Handles other routes
+    // Redirects other routes
     const redirectOtherRoute = () => {
         if (user) {
             if (user.type === 'department') {
@@ -47,6 +49,7 @@ const App = () => {
         return <Redirect to='/login' />
     }
 
+    // Handles /login redirects
     const loginRedirect = () => {
         if (user) {
             return redirectOtherRoute()
@@ -54,6 +57,7 @@ const App = () => {
         return <Login loadUser={loadUser} />
     }
 
+    // Handles /student redirects
     const studentRedirect = match => {
         if (!user) {
             return <Redirect to='/login' />
@@ -64,6 +68,7 @@ const App = () => {
         return redirectOtherRoute()
     }
 
+    // Handles /department redirects
     const departmentRedirect = match => {
         if (!user) {
             return <Redirect to='/login' />
@@ -74,14 +79,16 @@ const App = () => {
         return redirectOtherRoute()
     }
 
+    // Wait render till user loaded
     if (!render) {
         return null
     }
 
+    // Render according to routes
     return (
         <>
+            {/* Render header on every page */}
             <Header />
-
             <Router>
                 {/* Implement react routing here */}
                 <Switch>
@@ -91,6 +98,7 @@ const App = () => {
                         path='/department/:deptid'
                         render={({ match }) => departmentRedirect(match)}
                     />
+                    {/* Redirect other routes */}
                     <Route path='/'>{redirectOtherRoute()}</Route>
                 </Switch>
             </Router>
