@@ -3,9 +3,11 @@ import React, { useState, useEffect } from 'react'
 import { requestApproved, setResolved } from '../../services/complaintsService'
 import { getStudentNotifications } from '../../services/studentService'
 
+// Display notifications and user info
 const Dashboard = ({ user }) => {
     const [notifications, setNotifications] = useState([])
 
+    // Fetch this user's notifications
     useEffect(() => {
         getStudentNotifications(user.id).then(response => {
             if (response.success) {
@@ -14,27 +16,35 @@ const Dashboard = ({ user }) => {
         })
     }, [user.id])
 
+    // Approve an notification
     const approveRequest = notification => {
+        // Either confirm resolved request
         if (notification.type === 'COMP_RES') {
             setResolved(notification.complaintID).then(response => {
                 if (response.success) {
                     setNotifications(
                         notifications.filter(not => not.complaintID !== notification.complaintID)
                     )
+                } else {
+                    alert("Could't resolve complaint")
                 }
             })
         }
+        // Or accept to be added as supporter
         if (notification.type === 'SUP_REQ') {
             requestApproved(notification.complaintID, user.id).then(response => {
                 if (response.success) {
                     setNotifications(
                         notifications.filter(not => not.complaintID !== notification.complaintID)
                     )
+                } else {
+                    alert("Could't confirm support")
                 }
             })
         }
     }
 
+    // Render support notifications
     const renderSupportNotifications = () => {
         if (!notifications) {
             return <p>No notifications</p>
@@ -65,6 +75,7 @@ const Dashboard = ({ user }) => {
             ))
     }
 
+    // Render confirmation notifications
     const renderConfirmationNotifications = () => {
         if (!notifications) {
             return <p>No notifications</p>
@@ -112,13 +123,13 @@ const Dashboard = ({ user }) => {
             </div>
             <div>
                 <div className='center mw6'>
-                    <h1 className=''>Support requests</h1>
+                    <h1 className='supp-reqs'>Support requests</h1>
                 </div>
                 <ul className='list pl0 mt0 measure center'>{renderSupportNotifications()}</ul>
             </div>
             <div>
                 <div className='center mw6'>
-                    <h1 className=''>Resolved Confirmations</h1>
+                    <h1 className='res-conf'>Resolved Confirmations</h1>
                 </div>
                 <ul className='list pl0 mt0 measure center'>{renderConfirmationNotifications()}</ul>
             </div>

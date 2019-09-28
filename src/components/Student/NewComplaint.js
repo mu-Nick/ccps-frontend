@@ -11,43 +11,42 @@ const NewComplaint = ({ rollno }) => {
 
     const submit = e => {
         e.preventDefault()
+        // Validate inputs
         if (!title || !dept || !desc) {
-            return alert('Please fill in the fields')
-        }
-        if (title > 50) {
-            return alert('Title too long')
-        }
-        if (desc > 100) {
-            return alert('Complaint Description too long')
-        }
+            alert('Please fill in the fields')
+        } else if (title > 50) {
+            alert('Title too long')
+        } else if (desc > 100) {
+            alert('Complaint Description too long')
+        } else {
+            // build the supporters rollno array
+            const supportersList = suppList
+                .trim()
+                .split(',')
+                .map(i => parseInt(i, 10))
 
-        const supportersList = suppList
-            .trim()
-            .split(',')
-            .map(i => parseInt(i, 10))
+            if (supportersList.length > 100) {
+                alert('Maximum limit to add supporters reached')
+            } else {
+                supportersList.filter(supporter => supporter !== rollno)
 
-        if (supportersList.length > 100) {
-            return alert('Maximum limit to add supporters reached')
-        }
-        supportersList.filter(supporter => supporter !== rollno)
-
-        newComplaint(title, desc, rollno, dept)
-            .then(response => {
-                if (response.success) {
-                    if (supportersList.length > 0 && supportersList[0]) {
-                        sendSupportRequest(response.data.id, supportersList).then(result => {
-                            if (result.success) {
-                                console.log('Notification sent')
-                            }
-                        })
+                // Open new complaint
+                newComplaint(title, desc, rollno, dept).then(response => {
+                    if (response.success) {
+                        if (supportersList.length > 0 && supportersList[0]) {
+                            // Send requests to supporters
+                            sendSupportRequest(response.data.id, supportersList).then(result => {
+                                if (result.success) {
+                                    alert('Complaint opened and request to supporters sent')
+                                }
+                            })
+                        }
+                    } else {
+                        alert('Failed to register complaint')
                     }
-                } else {
-                    console.log('FAILED TO REGISTER COMPLAINT')
-                }
-            })
-            .catch(err => {
-                console.log(err)
-            })
+                })
+            }
+        }
     }
 
     return (
