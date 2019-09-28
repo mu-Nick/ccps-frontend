@@ -6,7 +6,7 @@ import { departmentLogin } from '../../services/loginService'
 const DepartmentLogin = ({ history, loadUser }) => {
     const [signInId, setId] = useState(null)
     const [signInPassword, setPassword] = useState(null)
-    const [rememberMe, setRememberMe] = useState(false)
+    const [rememberMe, setRememberMe] = useState(true)
 
     const onIdChange = event => {
         setId(event.target.value)
@@ -18,28 +18,30 @@ const DepartmentLogin = ({ history, loadUser }) => {
 
     const onSubmitSignin = event => {
         event.preventDefault()
-
+        // Validate inputs
         if (!signInId || !signInPassword) {
-            return alert('Please fill the fields')
-        }
-        // if (signInPassword.length < 8) {
-        //     return alert('Please enter valid login credentials')
-        // }
-        departmentLogin(signInId, signInPassword).then(response => {
-            if (response.success) {
-                loadUser(response.data)
-                localStorage.clear()
-                if (rememberMe) {
-                    localStorage.setItem(
-                        'user',
-                        JSON.stringify({ ...response.data, type: 'department' })
-                    )
+            alert('Please fill the fields')
+        } else if (signInPassword.length < 8) {
+            alert('Please enter valid login credentials')
+        } else {
+            // Send login credentials to server
+            departmentLogin(signInId, signInPassword).then(response => {
+                if (response.success) {
+                    loadUser(response.data)
+                    localStorage.clear()
+                    if (rememberMe) {
+                        localStorage.setItem(
+                            'user',
+                            JSON.stringify({ ...response.data, type: 'department' })
+                        )
+                    }
+                    // Redirect to department page
+                    history.push(`/department/${response.data.ID}`)
+                } else {
+                    alert(response.error.message)
                 }
-                history.push(`/department/${response.data.ID}`)
-            } else {
-                alert(response.error.message)
-            }
-        })
+            })
+        }
     }
 
     return (

@@ -9,6 +9,7 @@ const Department = ({ user, setUser, match }) => {
     return (
         <div>
             <Sidenav setUser={setUser} />
+            {/* Routing within /department */}
             <Switch>
                 <Route path={`${match.path}/pending`}>
                     <Pending deptid={user.id} />

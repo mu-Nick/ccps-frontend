@@ -6,6 +6,7 @@ import { sendSupportRequest } from '../../services/complaintsService'
 const ViewComplaints = ({ user }) => {
     const [comps, setComps] = useState([])
 
+    // View complaints opened by this user
     useEffect(() => {
         getStudentComplaints(user.id).then(response => {
             if (response.success) {
@@ -15,11 +16,12 @@ const ViewComplaints = ({ user }) => {
                     })
                 )
             } else {
-                console.log('COULDNT RETREIVE COMPLAINTS')
+                alert("Couldn't fetch complaints")
             }
         })
     }, [user.id])
 
+    // To toggle description visibility
     const changeVisibility = compID => {
         const newComps = comps.map(comp => {
             if (comp.ID === compID) {
@@ -30,6 +32,7 @@ const ViewComplaints = ({ user }) => {
         setComps(newComps)
     }
 
+    // Send request to supporters
     const submit = compid => {
         const supportersList = document
             .querySelector(`#supporters-${compid}`)
@@ -39,11 +42,12 @@ const ViewComplaints = ({ user }) => {
 
         sendSupportRequest(compid, supportersList).then(result => {
             if (result.success) {
-                console.log('Notification sent')
+                alert('Request sent to students')
             }
         })
     }
 
+    // Render the complaints of this user
     const renderComplaints = () => {
         return comps.map(comp => (
             <article key={comp.ID} className='dt w-100 bb b--black-05 pb2 mt2' href='#0'>

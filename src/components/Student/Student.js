@@ -7,6 +7,7 @@ import ViewComplaints from './ViewComplaints'
 import NewComplaint from './NewComplaint'
 
 const Student = ({ match, user, setUser }) => {
+    // Render pages based on /student path
     return (
         <>
             <SideNav user={user} setUser={setUser} />

@@ -6,7 +6,7 @@ import { studentLogin } from '../../services/loginService'
 const StudentLogin = ({ history, loadUser }) => {
     const [signInRoll, setRoll] = useState(null)
     const [signInPassword, setPassword] = useState(null)
-    const [rememberMe, setRememberMe] = useState(false)
+    const [rememberMe, setRememberMe] = useState(true)
 
     const onRollChange = event => {
         setRoll(event.target.value)
@@ -16,30 +16,36 @@ const StudentLogin = ({ history, loadUser }) => {
         setPassword(event.target.value)
     }
 
+    // Login the user
     const onSubmitSignin = event => {
         event.preventDefault()
 
+        // Validate inputs
         if (!signInRoll || !signInPassword) {
-            return alert('Please fill in the fields')
-        }
-        // if (isNaN(signInRoll) || signInPassword.length < 8) {
-        //     return alert('Please enter valid login credentials')
-        // }
-        studentLogin(signInRoll, signInPassword).then(response => {
-            if (response.success) {
-                loadUser(response.data)
-                localStorage.clear()
-                if (rememberMe) {
-                    localStorage.setItem(
-                        'user',
-                        JSON.stringify({ ...response.data, type: 'student' })
-                    )
+            alert('Please fill in the fields')
+            // eslint-disable-next-line
+        } else if (isNaN(signInRoll) || signInPassword.length < 8) {
+            alert('Please enter valid login credentials')
+        } else {
+            // Send login credentials to server
+            studentLogin(signInRoll, signInPassword).then(response => {
+                if (response.success) {
+                    // If login successfull
+                    loadUser(response.data)
+                    localStorage.clear()
+                    if (rememberMe) {
+                        localStorage.setItem(
+                            'user',
+                            JSON.stringify({ ...response.data, type: 'student' })
+                        )
+                    }
+                    // Redirect to student's page
+                    history.push(`/student/${response.data.Roll}`)
+                } else {
+                    alert(response.error.message)
                 }
-                history.push(`/student/${response.data.Roll}`)
-            } else {
-                alert(response.error.message)
-            }
-        })
+            })
+        }
     }
 
     return (
@@ -75,7 +81,7 @@ const StudentLogin = ({ history, loadUser }) => {
                             type='checkbox'
                             id='rememberStu'
                             checked={rememberMe}
-                            onChange={e => {
+                            onChange={() => {
                                 setRememberMe(!rememberMe)
                             }}
                         />
