@@ -20,8 +20,11 @@ const StudentLogin = ({ history, loadUser }) => {
         event.preventDefault()
 
         if (!signInRoll || !signInPassword) {
-            return alert('Please fill the fields')
+            return alert('Please fill in the fields')
         }
+        // if (isNaN(signInRoll) || signInPassword.length < 8) {
+        //     return alert('Please enter valid login credentials')
+        // }
         studentLogin(signInRoll, signInPassword).then(response => {
             if (response.success) {
                 loadUser(response.data)
@@ -34,7 +37,7 @@ const StudentLogin = ({ history, loadUser }) => {
                 }
                 history.push(`/student/${response.data.Roll}`)
             } else {
-                console.log('STUDENT LOGIN ERROR')
+                alert(response.error.message)
             }
         })
     }

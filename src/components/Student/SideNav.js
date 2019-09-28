@@ -7,7 +7,6 @@ import '@trendmicro/react-sidenav/dist/react-sidenav.css'
 const Sidenav = ({ match, history, setUser }) => {
     return (
         <SideNav
-            className='fixed'
             onSelect={selected => {
                 if (selected === 'logout') {
                     localStorage.clear()
@@ -15,6 +14,7 @@ const Sidenav = ({ match, history, setUser }) => {
                     history.push('/login')
                 }
             }}
+            style={{ position: 'fixed' }}
         >
             <SideNav.Toggle />
             <SideNav.Nav defaultSelected='dashboard'>

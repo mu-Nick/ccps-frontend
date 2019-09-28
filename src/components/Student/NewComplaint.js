@@ -11,12 +11,25 @@ const NewComplaint = ({ rollno }) => {
 
     const submit = e => {
         e.preventDefault()
+        if (!title || !dept || !desc) {
+            return alert('Please fill in the fields')
+        }
+        if (title > 50) {
+            return alert('Title too long')
+        }
+        if (desc > 100) {
+            return alert('Complaint Description too long')
+        }
         console.log('SUBMIT ME')
 
         const supportersList = suppList
             .trim()
             .split(',')
             .map(i => parseInt(i, 10))
+
+        if (supportersList.length > 100) {
+            return alert('Maximum limit to add supporters reached')
+        }
 
         newComplaint(title, desc, rollno, dept)
             .then(response => {
@@ -50,22 +63,36 @@ const NewComplaint = ({ rollno }) => {
                         name='title'
                         id='title'
                         width='80%'
+                        placeholder='Provide a title in less than 50 words'
                         value={title}
                         onChange={e => setTitle(e.target.value)}
-                        required
                     />
                 </Label>
                 <Label htmlFor='dept'>
                     Department Name :
-                    <Input
-                        type='text'
+                    <br />
+                    <br />
+                    <select
                         name='dept'
                         id='dept'
+                        value=''
                         width='80%'
                         value={dept}
                         onChange={e => setDept(e.target.value)}
-                        required
-                    />
+                    >
+                        <option disabled value=''>
+                            {' '}
+                            -- select a department --{' '}
+                        </option>
+                        <option value='Academic'>Academic</option>
+                        <option value='Accounts'>Accounts</option>
+                        <option value='Cleanliness'>Cleanliness</option>
+                        <option value='Electricity'>Electricity</option>
+                        <option value='Internet'>Internet</option>
+                        <option value='Mess'>Mess</option>
+                        <option value='Sports'>Sports</option>
+                        <option value='Training & Placement'>Training & Placement</option>
+                    </select>
                 </Label>
                 <Label
                     htmlFor='desc'
@@ -76,9 +103,9 @@ const NewComplaint = ({ rollno }) => {
                     Complaint Description :
                     <TextArea
                         width='80%'
+                        placeholder='Describe your complaint in less than 100 words'
                         value={desc}
                         onChange={e => setDesc(e.target.value)}
-                        required
                     />
                 </Label>
                 <Label
@@ -90,6 +117,7 @@ const NewComplaint = ({ rollno }) => {
                     Add supporters (roll no) :
                     <TextArea
                         width='80%'
+                        placeholder="Add supporters' comma separated roll numbers (max - 100)"
                         value={suppList}
                         onChange={e => setSuppList(e.target.value)}
                     />

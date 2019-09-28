@@ -22,6 +22,9 @@ const DepartmentLogin = ({ history, loadUser }) => {
         if (!signInId || !signInPassword) {
             return alert('Please fill the fields')
         }
+        // if (signInPassword.length < 8) {
+        //     return alert('Please enter valid login credentials')
+        // }
         departmentLogin(signInId, signInPassword).then(response => {
             if (response.success) {
                 loadUser(response.data)
@@ -34,7 +37,7 @@ const DepartmentLogin = ({ history, loadUser }) => {
                 }
                 history.push(`/department/${response.data.ID}`)
             } else {
-                console.log('Department login error')
+                alert(response.error.message)
             }
         })
     }
