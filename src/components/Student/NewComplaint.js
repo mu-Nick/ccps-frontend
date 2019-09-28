@@ -30,6 +30,7 @@ const NewComplaint = ({ rollno }) => {
         if (supportersList.length > 100) {
             return alert('Maximum limit to add supporters reached')
         }
+        supportersList.filter(supporter => return supporter !== rollno);
 
         newComplaint(title, desc, rollno, dept)
             .then(response => {
