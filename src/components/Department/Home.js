@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import { getDepartmentComplaints } from '../../services/departmentService'
-import { changeStatus } from '../../services/complaintsService'
+import { setPending } from '../../services/complaintsService'
 
 const Home = ({ user }) => {
     const [unprocessed, setUnprocessed] = useState([])
@@ -34,8 +34,8 @@ const Home = ({ user }) => {
         setUnprocessed(newComps)
     }
 
-    const setPending = compID => {
-        changeStatus(compID, 'Pending')
+    const setToPending = compID => {
+        setPending(compID)
             .then(response => {
                 if (response.success) {
                     console.log('Status changed')
@@ -84,7 +84,7 @@ const Home = ({ user }) => {
                             type='button'
                             className=' f6 bg-white ba b--black-10 dim pointer pv1 black-60'
                             onClick={() => {
-                                setPending(comp.ID)
+                                setToPending(comp.ID)
                             }}
                         >
                             Process

@@ -6,3 +6,9 @@ export const getStudentComplaints = rollno => {
         method: 'GET'
     }).then(response => response.json())
 }
+
+export const getStudentNotifications = rollno => {
+    return fetch(`${url}/${rollno}/notifications`, {
+        method: 'GET'
+    }).then(response => response.json())
+}

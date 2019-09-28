@@ -9,7 +9,6 @@ import Student from './components/Student/Student'
 const App = () => {
     const [render, setRender] = useState(false)
     const [user, setUser] = useState(null)
-    const [notifications, setNotifications] = useState([])
 
     const loadUser = user => {
         setUser({
@@ -18,9 +17,6 @@ const App = () => {
             email: user.Email,
             type: user.ID ? 'department' : 'student'
         })
-        if (user.Notifications) {
-            setNotifications(user.Notifications)
-        }
     }
 
     useEffect(() => {
@@ -34,7 +30,6 @@ const App = () => {
                 email: user.Email,
                 type: user.type
             })
-            setNotifications([])
             setRender(true)
         } else {
             setRender(true)
@@ -68,14 +63,7 @@ const App = () => {
             return <Redirect to='/login' />
         }
         if (parseInt(match.params.rollno, 10) === user.id) {
-            return (
-                <Student
-                    user={user}
-                    setUser={setUser}
-                    notifications={notifications}
-                    setNotifications={setNotifications}
-                />
-            )
+            return <Student user={user} setUser={setUser} />
         }
         return redirectOtherRoute()
     }
