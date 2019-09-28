@@ -23,7 +23,8 @@ const StudentLogin = ({ history, loadUser }) => {
         // Validate inputs
         if (!signInRoll || !signInPassword) {
             alert('Please fill in the fields')
-        } else if (isNaN(signInRoll) || signInPassword.length < 8) {
+            // eslint-disable-next-line
+        } else if (isNan(signInRoll) || signInPassword.length < 8) {
             alert('Please enter valid login credentials')
         } else {
             // Send login credentials to server
@@ -80,7 +81,7 @@ const StudentLogin = ({ history, loadUser }) => {
                             type='checkbox'
                             id='rememberStu'
                             checked={rememberMe}
-                            onChange={e => {
+                            onChange={() => {
                                 setRememberMe(!rememberMe)
                             }}
                         />
