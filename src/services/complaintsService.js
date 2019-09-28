@@ -20,7 +20,7 @@ export const newComplaint = (subject, description, rollno, deptid) => {
 }
 
 export const sendSupportRequest = (compid, supporters) => {
-    return fetch(`${url}/${compid}/supporters`, {
+    return fetch(`${url}/${compid}/addsupporters`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -30,7 +30,7 @@ export const sendSupportRequest = (compid, supporters) => {
 }
 
 export const requestApproved = (compid, rollno) => {
-    return fetch(`${url}/${compid}/addsupporter`, {
+    return fetch(`${url}/${compid}/confirmsupport`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -39,12 +39,26 @@ export const requestApproved = (compid, rollno) => {
     }).then(response => response.json())
 }
 
-export const changeStatus = (compid, newStatus) => {
-    return fetch(`${url}/${compid}/changestatus`, {
+export const setPending = compid => {
+    return fetch(`${url}/${compid}/pending`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            status: newStatus
-        })
+        body: JSON.stringify({})
+    }).then(response => response.json())
+}
+
+export const markResolved = compid => {
+    return fetch(`${url}/${compid}/markresolved`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({})
+    }).then(response => response.json())
+}
+
+export const setResolved = compid => {
+    return fetch(`${url}/${compid}/resolved`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({})
     }).then(response => response.json())
 }
