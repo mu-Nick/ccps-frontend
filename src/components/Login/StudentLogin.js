@@ -24,7 +24,7 @@ const StudentLogin = ({ history, loadUser }) => {
         if (!signInRoll || !signInPassword) {
             alert('Please fill in the fields')
             // eslint-disable-next-line
-        } else if (isNan(signInRoll) || signInPassword.length < 8) {
+        } else if (isNaN(signInRoll) || signInPassword.length < 8) {
             alert('Please enter valid login credentials')
         } else {
             // Send login credentials to server
