@@ -3,15 +3,19 @@ import React, { useState, useEffect } from 'react'
 import { getDepartmentComplaints } from '../../services/departmentService'
 import { changeStatus } from '../../services/complaintsService'
 
-const Home = ({ deptid }) => {
+const Home = ({ user }) => {
     const [unprocessed, setUnprocessed] = useState([])
 
     useEffect(() => {
-        getDepartmentComplaints(deptid).then(result => {
+        getDepartmentComplaints(user.id).then(result => {
             const comps = result.data
                 .filter(comp => comp.Status === 'Unprocessed')
                 .map(comp => {
-                    return { ...comp, visibility: 'none' }
+                    return {
+                        ...comp,
+                        visibility: 'none',
+                        supportersCount: comp.Supporters !== null ? comp.Supporters.length : 0
+                    }
                 })
             setUnprocessed(comps)
         })
@@ -41,6 +45,7 @@ const Home = ({ deptid }) => {
     }
 
     const renderUnprocessedComplaints = () => {
+        unprocessed.sort((a, b) => (a.supportersCount > b.supportersCount ? -1 : 1))
         return unprocessed.map(comp => (
             <article key={comp.ID} className='dt w-100 bb b--black-05 pb2 mt2' href='#0'>
                 <div className='dtc v-mid pl3'>
@@ -82,7 +87,7 @@ const Home = ({ deptid }) => {
                                 setPending(comp.ID)
                             }}
                         >
-                            Set
+                            Process
                         </button>
                     </form>
                 </div>
@@ -92,9 +97,24 @@ const Home = ({ deptid }) => {
 
     return (
         <div className=''>
+            <div className='db center mw5 tc black'>
+                <img
+                    className='db ba b--black-10'
+                    alt='Frank Ocean Blonde Album Cover'
+                    src='https://imageog.flaticon.com/icons/png/512/16/16480.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF'
+                />
+
+                <dl className='mt2 f6 lh-copy'>
+                    <dd className='ml0'>{user.id}</dd>
+                    <dd className='ml0 gray'>{user.name}</dd>
+                    <dd className='ml0 gray'>{user.email}</dd>
+                </dl>
+            </div>
             <main className='mw8 center'>
                 <div className=''>
-                    <h1>Recent Complaints</h1>
+                    <h1>
+                        Recent Unprocessed Complaints (Ranked according to number of supporters)
+                    </h1>
                 </div>
                 {renderUnprocessedComplaints()}
             </main>
