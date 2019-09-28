@@ -43,7 +43,7 @@ const NewComplaint = ({ rollno }) => {
         <Main>
             <Heading>Submit a new complaint : </Heading>
             <Form>
-                <Label for='title'>
+                <Label htmlFor='title'>
                     Complaint Title :
                     <Input
                         type='text'
@@ -55,7 +55,7 @@ const NewComplaint = ({ rollno }) => {
                         required
                     />
                 </Label>
-                <Label for='dept'>
+                <Label htmlFor='dept'>
                     Department Name :
                     <Input
                         type='text'
@@ -68,7 +68,7 @@ const NewComplaint = ({ rollno }) => {
                     />
                 </Label>
                 <Label
-                    for='desc'
+                    htmlFor='desc'
                     style={{
                         width: '100%'
                     }}
@@ -82,7 +82,7 @@ const NewComplaint = ({ rollno }) => {
                     />
                 </Label>
                 <Label
-                    for='supporters'
+                    htmlFor='supporters'
                     style={{
                         width: '100%'
                     }}

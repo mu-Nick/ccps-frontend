@@ -6,6 +6,7 @@ import '@trendmicro/react-sidenav/dist/react-sidenav.css'
 const Sidenav = ({ onIfaceChange }) => {
 	return (
 		<SideNav
+			className='fixed'
 			onSelect={selected => {
 				onIfaceChange(selected)
 			}}

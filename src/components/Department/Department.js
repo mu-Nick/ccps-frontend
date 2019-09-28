@@ -17,7 +17,7 @@ const Department = ({ user, onRouteChange }) => {
     return (
         <div>
             <Sidenav onIfaceChange={onIfaceChange} />
-            {iface === 'home' ? <Home deptid={user.id} /> : <Pending deptid={user.id} />}
+            {iface === 'home' ? <Home user={user} /> : <Pending deptid={user.id} />}
             {/*<ViewComplaint />*/}
         </div>
     )
