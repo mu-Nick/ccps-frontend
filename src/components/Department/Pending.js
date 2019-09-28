@@ -3,9 +3,11 @@ import React, { useState, useEffect } from 'react'
 import { getDepartmentComplaints } from '../../services/departmentService'
 import { markResolved } from '../../services/complaintsService'
 
+// Display all the pending complaints of this department
 const Pending = ({ deptid }) => {
     const [pending, setPending] = useState([])
 
+    // Fetch the pending complaints
     useEffect(() => {
         getDepartmentComplaints(deptid).then(result => {
             const comps = result.data
@@ -21,6 +23,7 @@ const Pending = ({ deptid }) => {
         })
     }, [deptid])
 
+    // To expand description
     const changeVisibility = compID => {
         const newComps = pending.map(comp => {
             if (comp.ID === compID) {
@@ -34,18 +37,20 @@ const Pending = ({ deptid }) => {
         setPending(newComps)
     }
 
+    // Set this complaint as resolved, and sent the request to complaint opener
     const setResolved = compID => {
         markResolved(compID)
             .then(response => {
                 if (response.success) {
-                    alert('Will be removed when complaint opener confirms resolve')
+                    alert('Will be removed when complaint opener confirms that its resolved')
                 }
             })
-            .catch(err => {
-                console.log(err)
+            .catch(() => {
+                alert("Couldn't update status, please try again later")
             })
     }
 
+    // Render the complaints sorted by supporter count
     const renderPendingComplaints = () => {
         pending.sort((a, b) => b.supportersCount - a.supportersCount)
         return pending.map(comp => (
@@ -98,7 +103,8 @@ const Pending = ({ deptid }) => {
         <div>
             <main className='mw8 center'>
                 <div className=''>
-                    <h1>Pending Complaints (Ranked according to the number of supporters)</h1>
+                    <h1>Pending Complaints</h1>
+                    <h5>Ranked according to the number of supporters</h5>
                 </div>
                 {renderPendingComplaints()}
             </main>
